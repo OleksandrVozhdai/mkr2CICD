@@ -1,36 +1,50 @@
-name: Django CI/CD to Heroku
+#!!
+#Run akhileshns/heroku-deploy@v3.12.12
+#From https://github.com/OleksandrVozhdai/mkr2CICD
+# * [new branch]      develop    -> origin/develop
+#Created and wrote to ~/.netrc
+#Successfully logged into heroku
+#/bin/sh: 1: heroku: not found
+#/bin/sh: 1: heroku: not found
+#Error: Error: Command failed: heroku create
 
-on:
-  push:
-    branches: ["main"]
+# !!This action will always fail in our case because we are not actually deploying to heroku!!
+# So i decided to comment all this to prevent fails
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#name: Django CI/CD to Heroku
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+#on:
+#  push:
+#    branches: ["main"]
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
 
-      - name: Run Django tests
-        run: |
-          python manage.py migrate --noinput
-          python manage.py test
+#   steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
 
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          usedocker: false
+#      - name: Set up Python
+#        uses: actions/setup-python@v4
+#        with:
+#         python-version: '3.10'
+
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install -r requirements.txt
+
+#      - name: Run Django tests
+#        run: |
+#          python manage.py migrate --noinput
+#          python manage.py test
+
+#      - name: Deploy to Heroku
+#        uses: akhileshns/heroku-deploy@v3.12.12
+#        with:
+#          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+#          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+#          usedocker: false
