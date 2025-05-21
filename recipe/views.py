@@ -15,7 +15,7 @@ def main(request):
 
 def category_detail(request, category_id):
     category = get_object_or_404(Category, id=category_id)
-    recipes = category.recipes.all()
+    recipes = category.categories.all()
     return render(request, 'category_detail.html', {
         'category': category,
         'recipes': recipes
