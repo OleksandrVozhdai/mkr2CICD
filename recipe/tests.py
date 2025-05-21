@@ -31,3 +31,24 @@ class RecipeViewsTest(TestCase):
 
         self.assertEqual(len(response.context['recipes']), 12)
 
+    def test_main_view_returns_different_recipes(self):
+        first_response = self.client.get(reverse('main'))
+        second_response = self.client.get(reverse('main'))
+
+        titles_1 = set(r.title for r in first_response.context['recipes'])
+        titles_2 = set(r.title for r in second_response.context['recipes'])
+
+        self.assertNotEqual(titles_1, titles_2)
+
+    def test_main_view_with_no_recipes(self):
+        Recipe.objects.all().delete()
+        response = self.client.get(reverse('main'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No recipes found.')
+
+    def test_category_detail_with_no_recipes(self):
+        Recipe.objects.all().delete()
+        response = self.client.get(reverse('category_detail', args=[self.category.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'No recipes found.')
+
